@@ -3,13 +3,13 @@ const express = require('express');
 const cors = require("cors");
 const admin = require("firebase-admin");
 const app = express();
-const port = 7777;
+const port = 9999;
 
 var serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://ajnasuite.firebaseio.com"
+    databaseURL: "https://arpitdemo26-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 
 
@@ -17,8 +17,8 @@ admin.initializeApp({
 // Serve Static Assets
 app.use(express.static(__dirname + '/static', { dotfiles: 'allow' }));
 app.use(express.static('public'));
-app.use('/three', express.static('public/three'));
-app.use(express.static('public/three'));
+// app.use('/three', express.static('public/three'));
+// app.use(express.static('public/three'));
 
 app.use(cors({ origin: true }));
 
