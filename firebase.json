@@ -9,16 +9,8 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/index.html"
+        "function": "app"
       }
     ]
-  },
-  "emulators": {
-    "functions": {
-      "port": 5001
-    },
-    "ui": {
-      "enabled": true
-    }
   }
 }
