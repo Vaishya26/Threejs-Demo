@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+    height: 100vh;
+    background: rgb(24, 24, 24);
+    font-family: "Poppins";
+}
+
+.webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+.bar {
+    position: absolute;
+    width: 100%;
+    padding: 1.5% 1.5%;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+.icon-button {
+    border-radius: 50%;
+    border: 1px solid #fff;
+    width: 3.5vw;
+    height: 3.5vw;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+.icon-button-goup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar {
+    background: #787ff6;
+    display: flex;
+    padding: 0 20px;
+    border-radius: 70px;
+}
+
+.toolbar-btn {
+    border: none;
+    margin: 0px;
+    padding: 0.7vw;
+}
+
+.clickable {
+    pointer-events: all;
+}
+
+.toolbar-btn .icon {
+    width: 70%;
+    height: 70%;
+}
+
+.custom-modal {
+    position: absolute;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.options {
+    width: fit-content;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.option {
+    width: 200px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text {
+    /* width: 75%; */
+    font-size: 0.8em;
+}
+
+.option-icon-button .icon {
+    width: 0.9rem;
+    height: 0.9rem;
+}
+
+#more {
+    transform: translate(-70%, -110%);
+}
+
+.option-icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options.invite {
+    width: 100%;
+}
+
+.options.invite .option {
+    width: 100%;
+}
+
+
+.btn.submit {
+    outline: none;
+    border: none;
+    background-color: #787ff6;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.custom-modal-header .typography {
+    font-weight: bolder;
+    text-align: center;
+}
+
+.custom-modal-header {
+    width: 100%;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.icon.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 2rem;
+    height: 2rem;
+}
+
+.grid-4.tiles {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.plus-btn {
+    padding: 0;
+    margin-left: 0;
+    background-color: #787ff6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+}
+
+.plus-btn .icon {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.input-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    color: #787ff6;
+}
+
+.input-group.submit {
+    justify-content: center;
+}
+
+
+.relative {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.toolbar-btn>img {
+    font-size: 20px;
+}

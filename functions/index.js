@@ -12,14 +12,9 @@ admin.initializeApp({
     databaseURL: "https://arpitdemo26-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 
-
-
 // Serve Static Assets
 app.use(express.static(__dirname + '/static', { dotfiles: 'allow' }));
 app.use(express.static('public'));
-// app.use('/three', express.static('public/three'));
-// app.use(express.static('public/three'));
-
 app.use(cors({ origin: true }));
 
 app.get('/scene', (req, res) => {
@@ -30,5 +25,5 @@ app.listen(port, function () {
     console.log("Listening to port " + port);
 });
 
-
+// Google Cloud Build
 exports.app = functions.https.onRequest(app);

@@ -1,15 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ThreeJS Demo</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!-- BootStrap 4 CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- FontAwesome 5 CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/v4-shims.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Google Material Design, Font CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/overlay.css" />
+    <link rel="stylesheet" href="/sweetalert2/sweetalert2.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"
+        integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg=="
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://unpkg.com/three@0.126.1/examples/js/controls/TransformControls.js"></script>
+
+    <style>
+        .navbar-control {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <P>Hello World</P>
+    <input type="file" id="real-upload" style="display: none;" />
+    <canvas class="webgl"></canvas>
+    <div id="overlay" style="display: none;">
+        <div class="loadingDiv">
+            <div class="loader"></div>
+            <div>
+                <h3>Loading screenshot</h3>
+            </div>
+        </div>
+        <div class="bar bottom">
+            <div class="rel">
+                <div class="icon-button-goup left">
+                </div>
+                <textarea style="display: none;" id="stickyText"
+                    placeholder="This is a sticky note you can type and edit."></textarea>
+                <div class="toolbar">
+                    <div class="icon-button clickable toolbar-btn toolbar-btn-main">
+                        <img class="icon custom-tooltip" src="/images/Insert.svg" alt="load" data-placement="top"
+                            data-container="body" tooltipTitle="Upload Asset" data-toggle="modal"
+                            data-target="#openLibraryModal" />
+                    </div>
+
+                    <!-- dynamic toolbar btns -->
+                    <div class="icon-button clickable toolbar-btn toolbar-btn-dynamic toolbar-btn-trsds" id="t">
+                        <img class="icon custom-tooltip" src="/images/translate.svg" alt="Translate"
+                            data-placement="right" data-container="body" tooltipTitle="Position" />
+                    </div>
+                    <div class="icon-button clickable toolbar-btn toolbar-btn-dynamic toolbar-btn-trsds" id="r">
+                        <img class="icon custom-tooltip" src="/images/rotate.svg" alt="Rotate" data-placement="right"
+                            data-container="body" tooltipTitle="Rotate" />
+                    </div>
+                    <div class="icon-button clickable toolbar-btn toolbar-btn-dynamic toolbar-btn-trsds" id="s">
+                        <img class="icon custom-tooltip" src="/images/scale.svg" alt="Scale" data-placement="right"
+                            data-container="body" tooltipTitle="Scale" />
+                    </div>
+                    <div class="icon-button clickable toolbar-btn toolbar-btn-dynamic toolbar-btn-trsds" id="x">
+                        <img class="icon custom-tooltip" src="/images/Delete2.svg" alt="Delete" data-placement="right"
+                            data-container="body" tooltipTitle="Delete" />
+                    </div>
+                </div>
+                <div class="icon-button-goup right">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="openLibraryModal" style="display: none;" tabindex="-1" role="dialog"
+            aria-labelledby="openLibraryCenterTitle" aria-hidden="true">
+            <div id="library-modal" class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body" style="max-height: none;">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="icon logo" src="/images/Lib.svg" alt="library" />
+                                    <h4 style="display: inline-block;color: black !important;font-weight: bold;">
+                                        Library
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true" style="font-size: 1.2em">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12" style="padding: 20px;padding-left: 40px;">
+                                        <input class="radio-btn-tab" id="saved-btn" name="group" type="radio" checked />
+                                        <label id="svaed-label" type="submit" class="btns submit btn-success ns lib"
+                                            for="saved-btn">
+                                            3D models
+                                        </label>
+                                        <div id="tab-body-saved" class="grid-4 tiles lib"></div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row" style="text-align: center">
+                                    <div class="col-md-12">
+                                        <button style="background-color: #787ff6;color: #fff;" id="submitLibrary"
+                                            type="submit" class="btns submit btn-success">
+                                            Upload Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- div for overlaying ui/ux elements -->
+    <div id="info" class="h-100">
+
+        <div class="d-flex justify-content-center pt-2" style="height: 12.5%;">
+            <div id="model_load_bar_container" class="progress align-self-start"
+                style="width: 20%;display: none; margin-left: 40%;">
+                <div id="model_load_bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <span id="model_load_bar_percent"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Firbase CDNs and Cookie -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+    <script src="../js/firebase-config.js"></script>
+
+
+    <!-- JQuery & Bootstrap Dependency -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"
+        type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="/sweetalert2/sweetalert2.js"></script>
+
+    <!-- Main Script for ThreeJS operations -->
+    <script src="/js/keyboard.js"></script>
+    <script src="/js/moduleScript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 
 </html>
